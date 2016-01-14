@@ -2,6 +2,7 @@ package org.titans2022.frc2016.subsystems;
 
 import org.titans2022.frc2016.RobotMap;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -10,6 +11,7 @@ public class ShooterSubsystem extends Subsystem {
 	TalonSRX intakeFront;
 	TalonSRX intakeBack;
 	TalonSRX shooterHinge;
+	DigitalInput limitSwitch = new DigitalInput(RobotMap.limitSwitch);
 
 	public ShooterSubsystem() {
 		// Constructor for the subsystem sets the different motors,
@@ -24,13 +26,37 @@ public class ShooterSubsystem extends Subsystem {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void setIntakeFront (double speed) {
-		intakeFront.set(speed);
+	public void setIntake (int speed) {
+		if(speed == 1){
+			intakeFront.set(1);
+			intakeBack.set(1);
+		}
+		else if(speed == -1){
+			if(limitSwitch.get() == false){
+				intakeFront.set(-1);
+				intakeBack.set(0);
+			}
+			else{
+				intakeFront.set(0);
+				intakeBack.set(0);
+			}
+		}
+		else if(speed == 0){
+			intakeFront.set(0);
+			intakeBack.set(0);
+		}
+		
 	}
 	
-	public void setIntakeBack (double speed) {
-		intakeBack.set(speed);
+	public void changeShooterAngle(double speed){
+		shooterHinge.set(speed);
 	}
+	
+	public void stop(){
+		intakeFront.set(0);
+		intakeBack.set(0);
+	}
+	
 
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub

@@ -5,12 +5,12 @@ import org.titans2022.frc2016.RobotMap;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class DriveSystem extends Subsystem{
+public class DriveSubsystem extends Subsystem{
 	//internal drive system
 	private RobotDrive drive;
-	SensorSystem system;
+	SensorSubsystem system;
 	private double rightSpeed, leftSpeed;
-	public DriveSystem() {
+	public DriveSubsystem() {
 		drive = new RobotDrive(RobotMap.frontLeftMotor, RobotMap.backLeftMotor, RobotMap.frontRightMotor,
 				RobotMap.backRightMotor);
 		drive.setSafetyEnabled(true);

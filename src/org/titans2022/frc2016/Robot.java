@@ -11,10 +11,12 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.titans2022.frc2016.commands.AutoFireCommand;
 import org.titans2022.frc2016.commands.AutonomousCommand;
 import org.titans2022.frc2016.commands.DriveCommand;
+import org.titans2022.frc2016.commands.ShooterCommand;
 import org.titans2022.frc2016.controllers.Attack3;
 import org.titans2022.frc2016.controllers.Xbox;
-import org.titans2022.frc2016.subsystems.DriveSystem;
-import org.titans2022.frc2016.subsystems.SensorSystem;
+import org.titans2022.frc2016.subsystems.DriveSubsystem;
+import org.titans2022.frc2016.subsystems.SensorSubsystem;
+import org.titans2022.frc2016.subsystems.ShooterSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,14 +31,15 @@ public class Robot extends IterativeRobot {
 	public Xbox xbox;
 	public Attack3 attack3, attack4;
 	// Robot Drive subsystem
-	public DriveSystem driveSystem;
-	public SensorSystem sensorSystem;
+	public DriveSubsystem driveSubsystem;
+	public SensorSubsystem sensorSubsystem;
+	public static ShooterSubsystem shooterSubsystem;
 	// Robot internal state
 	/// none yet
 	// Robot Commands
 	AutonomousCommand autonomousCommand;
-	AutoFireCommand fireCommand;
 	DriveCommand driveCommand;
+	ShooterCommand shooterCommand;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -49,12 +52,14 @@ public class Robot extends IterativeRobot {
 		attack3 = new Attack3(RobotMap.attack3Port);
 		attack4 = new Attack3(RobotMap.attack4Port);
 		// initialize drive subsystem
-		driveSystem = new DriveSystem();
+		driveSubsystem = new DriveSubsystem();
+		//initialize shooter subsystem
+		shooterSubsystem = new ShooterSubsystem();
 		// instantiate the command(s) used for the autonomous period
 		autonomousCommand = new AutonomousCommand();//??? Add more commands???
 		// instantiate the command(s) used for the teleop period
-		fireCommand = new AutoFireCommand();
-		driveCommand = new DriveCommand(driveSystem);
+		shooterCommand = new ShooterCommand();
+		driveCommand = new DriveCommand(driveSubsystem);
 	}
 
 	public void disabledPeriodic() {
@@ -80,7 +85,7 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		autonomousCommand.cancel();
 		// start the teleop commands
-		fireCommand.start();
+		shooterCommand.start();
 		driveCommand.start();
 	}
 
@@ -90,7 +95,7 @@ public class Robot extends IterativeRobot {
 	 */
 	public void disabledInit() {
 		// disable robot
-		driveSystem.stop();
+		driveSubsystem.stop();
 	}
 
 	/**

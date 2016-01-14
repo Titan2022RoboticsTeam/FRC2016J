@@ -3,7 +3,7 @@ package org.titans2022.frc2016.commands;
 import org.titans2022.frc2016.Robot;
 import org.titans2022.frc2016.RobotMap;
 import org.titans2022.frc2016.controllers.Xbox;
-import org.titans2022.frc2016.subsystems.DriveSystem;
+import org.titans2022.frc2016.subsystems.DriveSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -11,15 +11,15 @@ import edu.wpi.first.wpilibj.command.Command;
  * This command controls the Robot's Tank Drive.
  */
 public class DriveCommand extends Command {
-	protected DriveSystem driveSystem;
+	protected DriveSubsystem driveSubsystem;
 	protected boolean inverted;
 	
-	public DriveCommand(DriveSystem drive) {
-		this.driveSystem = drive;
+	public DriveCommand(DriveSubsystem drive) {
+		this.driveSubsystem = drive;
 	}
 
 	protected void initialize() {
-		requires(driveSystem);
+		requires(driveSubsystem);
 	}
 
 	protected void execute() {
@@ -34,7 +34,7 @@ public class DriveCommand extends Command {
 			rightValue = xbox.GetLeftY();
 		}
 
-		driveSystem.setSpeed(leftValue, rightValue);
+		driveSubsystem.setSpeed(leftValue, rightValue);
 	}
 
 	protected boolean isFinished() {
@@ -42,7 +42,7 @@ public class DriveCommand extends Command {
 	}
 
 	protected void end() {
-		driveSystem.stop();
+		driveSubsystem.stop();
 	}
 
 	protected void interrupted() {
