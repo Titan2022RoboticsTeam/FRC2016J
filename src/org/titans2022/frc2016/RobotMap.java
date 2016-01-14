@@ -26,4 +26,9 @@ public class RobotMap {
 	//controller configuration
 	public static int invertButton = Xbox.A_BUTTON;
 	public static double sensitivity = 0.05;
+	// Motor ports for intake and hinge in shooter
+	public static int intakeFrontPort = 0;
+	public static int intakeBackPort = 1;
+	public static int hingePort = 2;
+	
 }
