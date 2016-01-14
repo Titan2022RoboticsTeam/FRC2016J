@@ -7,9 +7,14 @@ import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+
+import org.titans2022.frc2016.commands.AutoFireCommand;
 import org.titans2022.frc2016.commands.AutonomousCommand;
-import org.titans2022.frc2016.controller.Attack3;
-import org.titans2022.frc2016.controller.Xbox;
+import org.titans2022.frc2016.commands.DriveCommand;
+import org.titans2022.frc2016.controllers.Attack3;
+import org.titans2022.frc2016.controllers.Xbox;
+import org.titans2022.frc2016.subsystems.DriveSystem;
+import org.titans2022.frc2016.subsystems.SensorSystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,11 +29,14 @@ public class Robot extends IterativeRobot {
 	public Xbox xbox;
 	public Attack3 attack3, attack4;
 	// Robot Drive subsystem
-	public RobotDrive drive;
+	public DriveSystem driveSystem;
+	public SensorSystem sensorSystem;
 	// Robot internal state
-	// none yet
+	/// none yet
 	// Robot Commands
-	Command autonomousCommand;
+	AutonomousCommand autonomousCommand;
+	AutoFireCommand fireCommand;
+	DriveCommand driveCommand;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -41,11 +49,12 @@ public class Robot extends IterativeRobot {
 		attack3 = new Attack3(RobotMap.attack3Port);
 		attack4 = new Attack3(RobotMap.attack4Port);
 		// initialize drive subsystem
-		drive = new RobotDrive(RobotMap.frontLeftMotor, RobotMap.backLeftMotor, RobotMap.frontRightMotor,
-				RobotMap.backRightMotor);
-		drive.setSafetyEnabled(true);
-		// instantiate the command used for the autonomous period
-		autonomousCommand = new AutonomousCommand();
+		driveSystem = new DriveSystem();
+		// instantiate the command(s) used for the autonomous period
+		autonomousCommand = new AutonomousCommand();//??? Add more commands???
+		// instantiate the command(s) used for the teleop period
+		fireCommand = new AutoFireCommand();
+		driveCommand = new DriveCommand(driveSystem);
 	}
 
 	public void disabledPeriodic() {
@@ -54,8 +63,7 @@ public class Robot extends IterativeRobot {
 
 	public void autonomousInit() {
 		// schedule the autonomous command (example)
-		if (autonomousCommand != null)
-			autonomousCommand.start();
+		autonomousCommand.start();
 	}
 
 	/**
@@ -70,8 +78,10 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (autonomousCommand != null)
-			autonomousCommand.cancel();
+		autonomousCommand.cancel();
+		// start the teleop commands
+		fireCommand.start();
+		driveCommand.start();
 	}
 
 	/**
@@ -80,7 +90,7 @@ public class Robot extends IterativeRobot {
 	 */
 	public void disabledInit() {
 		// disable robot
-		drive.stopMotor();
+		driveSystem.stop();
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package org.titans2022.frc2016.controller;
+package org.titans2022.frc2016.controllers;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

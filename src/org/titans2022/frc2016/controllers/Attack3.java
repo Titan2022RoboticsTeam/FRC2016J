@@ -1,4 +1,4 @@
-package org.titans2022.frc2016.controller;
+package org.titans2022.frc2016.controllers;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
