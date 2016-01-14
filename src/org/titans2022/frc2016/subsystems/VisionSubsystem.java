@@ -2,9 +2,9 @@ package org.titans2022.frc2016.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Vision extends Subsystem {
+public class VisionSubsystem extends Subsystem {
 
-	public Vision() {
+	public VisionSubsystem() {
 		// TODO Auto-generated constructor stub
 	}
 	//Do not use 

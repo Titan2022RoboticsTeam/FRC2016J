@@ -6,10 +6,10 @@ import org.titans2022.frc2016.sensors.Lidar;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class SensorSystem extends Subsystem {
+public class SensorSubsystem extends Subsystem {
 	private Gyro gyro;
 	private Lidar rangeFinder;
-	public SensorSystem() {
+	public SensorSubsystem() {
 		gyro = new Gyro(RobotMap.gyroPort);
 		gyro.initGyro();
 		rangeFinder = new Lidar(RobotMap.lidarPort);

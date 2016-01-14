@@ -1,8 +1,8 @@
 package org.titans2022.frc2016.subsystems;
 
-public class Scaler {
+public class ScalerSubsystem {
 
-	public Scaler() {
+	public ScalerSubsystem() {
 		// TODO Auto-generated constructor stub
 	}
 
