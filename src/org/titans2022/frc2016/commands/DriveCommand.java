@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveCommand extends Command {
 	protected DriveSubsystem driveSubsystem;
-	protected boolean inverted;
+	protected boolean inverted = false;
 	
 	public DriveCommand(DriveSubsystem drive) {
 		this.driveSubsystem = drive;
@@ -23,15 +23,19 @@ public class DriveCommand extends Command {
 	}
 
 	protected void execute() {
+		double leftValue;
+		double rightValue;
 		Xbox xbox = Robot.robot.xbox;
 		if (xbox.GetRawButton(RobotMap.invertButton)) {
 			inverted = !inverted;
 		}
-		double leftValue = xbox.GetLeftY();
-		double rightValue = xbox.GetRightY();
 		if (inverted) {
-			leftValue = xbox.GetRightY();
-			rightValue = xbox.GetLeftY();
+			leftValue = -xbox.GetRightY();
+			rightValue = -xbox.GetLeftY();
+		}
+		else{
+			leftValue = xbox.GetLeftY();
+			rightValue = xbox.GetRightY();
 		}
 
 		driveSubsystem.setSpeed(leftValue, rightValue);
