@@ -11,7 +11,7 @@ public class ShooterSubsystem extends Subsystem {
 	TalonSRX intakeFront;
 	TalonSRX intakeBack;
 	TalonSRX shooterHinge;
-	DigitalInput limitSwitch = new DigitalInput(RobotMap.limitSwitch);
+	DigitalInput limitSwitch = new DigitalInput(RobotMap.limitSwitchPort);
 
 	public ShooterSubsystem() {
 		// Constructor for the subsystem sets the different motors,
@@ -19,11 +19,6 @@ public class ShooterSubsystem extends Subsystem {
 		intakeFront = new TalonSRX(RobotMap.intakeFrontPort);
 		intakeBack = new TalonSRX(RobotMap.intakeBackPort);
 		shooterHinge = new TalonSRX(RobotMap.hingePort);
-	}
-
-	public ShooterSubsystem(String name) {
-		super(name);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void setIntake (int speed) {

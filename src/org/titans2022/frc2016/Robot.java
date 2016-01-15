@@ -1,14 +1,6 @@
 
 package org.titans2022.frc2016;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.RobotDrive.MotorType;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-
-import org.titans2022.frc2016.commands.AutoFireCommand;
 import org.titans2022.frc2016.commands.AutonomousCommand;
 import org.titans2022.frc2016.commands.DriveCommand;
 import org.titans2022.frc2016.commands.ShooterCommand;
@@ -17,6 +9,10 @@ import org.titans2022.frc2016.controllers.Xbox;
 import org.titans2022.frc2016.subsystems.DriveSubsystem;
 import org.titans2022.frc2016.subsystems.SensorSubsystem;
 import org.titans2022.frc2016.subsystems.ShooterSubsystem;
+
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  * The VM is configured to automatically run this class, and to call the
