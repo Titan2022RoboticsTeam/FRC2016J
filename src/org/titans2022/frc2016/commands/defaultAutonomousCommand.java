@@ -1,4 +1,3 @@
-
 package org.titans2022.frc2016.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -6,10 +5,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class AutonomousCommand extends Command {
+public class defaultAutonomousCommand extends Command {
 
-    public AutonomousCommand() {
+    public defaultAutonomousCommand() {
         // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time

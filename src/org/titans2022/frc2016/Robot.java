@@ -4,6 +4,7 @@ package org.titans2022.frc2016;
 import org.titans2022.frc2016.commands.AutonomousCommand;
 import org.titans2022.frc2016.commands.DriveCommand;
 import org.titans2022.frc2016.commands.ShooterCommand;
+import org.titans2022.frc2016.commands.defaultAutonomousCommand;
 import org.titans2022.frc2016.controllers.Attack3;
 import org.titans2022.frc2016.controllers.Xbox;
 import org.titans2022.frc2016.subsystems.DriveSubsystem;
@@ -11,8 +12,11 @@ import org.titans2022.frc2016.subsystems.SensorSubsystem;
 import org.titans2022.frc2016.subsystems.ShooterSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,9 +37,11 @@ public class Robot extends IterativeRobot {
 	// Robot internal state
 	/// none yet
 	// Robot Commands
-	AutonomousCommand autonomousCommand;
+	Command autonomousCommand;
 	DriveCommand driveCommand;
 	ShooterCommand shooterCommand;
+	//For Choosing Autonomous Strategy
+	SendableChooser autoChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -51,11 +57,15 @@ public class Robot extends IterativeRobot {
 		driveSubsystem = new DriveSubsystem();
 		//initialize shooter subsystem
 		shooterSubsystem = new ShooterSubsystem();
-		// instantiate the command(s) used for the autonomous period
-		autonomousCommand = new AutonomousCommand();//??? Add more commands???
 		// instantiate the command(s) used for the teleop period
 		shooterCommand = new ShooterCommand();
 		driveCommand = new DriveCommand(driveSubsystem);
+		//instantiate SendableChooser
+		autoChooser = new SendableChooser();
+		//AutoChooser:
+		autoChooser.addDefault("Default Autonomous", new defaultAutonomousCommand());
+		//autoChooser.addObject("Name of Strategy", new AutonomousCommandStrategy());
+		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
 	}
 
 	public void disabledPeriodic() {
@@ -64,6 +74,7 @@ public class Robot extends IterativeRobot {
 
 	public void autonomousInit() {
 		// schedule the autonomous command (example)
+		autonomousCommand = (Command) autoChooser.getSelected();
 		autonomousCommand.start();
 	}
 
