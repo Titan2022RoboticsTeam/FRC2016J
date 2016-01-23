@@ -23,6 +23,10 @@ public class RobotMap {
 	public static int lidarPort = -1;
 	public static int limitSwitchPort = -1;
 	public static int potentiometerPort = -1;
+	public static int rightEncoderPortA = -1;
+	public static int rightEncoderPortB = -1;
+	public static int leftEncoderPortA = -1;
+	public static int leftEncoderPortB = -1;
 	//sensor configuration
 	public static double lidarScalar = 1;
 	//controller configuration
