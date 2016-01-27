@@ -26,6 +26,14 @@ public class DriveSubsystem extends Subsystem{
 		return leftSpeed;
 	}
 	
+	public void setRightSpeed(double rightSpeed){
+		this.setSpeed(rightSpeed, leftSpeed);
+	}
+	
+	public void setLeftSpeed(double leftSpeed){
+		this.setSpeed(rightSpeed, leftSpeed);
+	}
+	
 	public void setSpeed(double rightSpeed, double leftSpeed){
 		drive.tankDrive(rightSpeed, leftSpeed);
 		this.rightSpeed = rightSpeed;
