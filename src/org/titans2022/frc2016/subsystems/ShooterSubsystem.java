@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class ShooterSubsystem extends Subsystem {
-	
 	TalonSRX intakeFront;
 	TalonSRX intakeBack;
 	TalonSRX shooterHinge;

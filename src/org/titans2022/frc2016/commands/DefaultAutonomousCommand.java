@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class defaultAutonomousCommand extends Command {
+public class DefaultAutonomousCommand extends Command {
 
-    public defaultAutonomousCommand() {
+    public DefaultAutonomousCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }

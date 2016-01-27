@@ -1,7 +1,7 @@
 package org.titans2022.frc2016.commands;
 
+import org.titans2022.frc2016.ControllerMap;
 import org.titans2022.frc2016.Robot;
-import org.titans2022.frc2016.RobotMap;
 import org.titans2022.frc2016.controllers.Xbox;
 import org.titans2022.frc2016.subsystems.DriveSubsystem;
 
@@ -23,20 +23,13 @@ public class DriveCommand extends Command {
 	}
 
 	protected void execute() {
-		double leftValue;
-		double rightValue;
 		Xbox xbox = Robot.robot.xbox;
-		if (xbox.GetRawButton(RobotMap.invertButton)) {
+		if (xbox.GetRawButton(ControllerMap.invertButton)) {
 			inverted = !inverted;
 		}
-		if (inverted) {
-			leftValue = -xbox.GetRightY();
-			rightValue = -xbox.GetLeftY();
-		}
-		else{
-			leftValue = xbox.GetLeftY();
-			rightValue = xbox.GetRightY();
-		}
+		double scale = inverted ? -ControllerMap.scale: ControllerMap.scale;
+		double leftValue = scale * xbox.GetRightY();
+		double rightValue = scale * xbox.GetLeftY();
 
 		driveSubsystem.setSpeed(leftValue, rightValue);
 	}

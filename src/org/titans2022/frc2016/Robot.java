@@ -1,10 +1,9 @@
 
 package org.titans2022.frc2016;
 
-import org.titans2022.frc2016.commands.AutonomousCommand;
 import org.titans2022.frc2016.commands.DriveCommand;
 import org.titans2022.frc2016.commands.ShooterCommand;
-import org.titans2022.frc2016.commands.defaultAutonomousCommand;
+import org.titans2022.frc2016.commands.DefaultAutonomousCommand;
 import org.titans2022.frc2016.controllers.Attack3;
 import org.titans2022.frc2016.controllers.Xbox;
 import org.titans2022.frc2016.subsystems.DriveSubsystem;
@@ -50,9 +49,9 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		robot = this;
 		// initialize the controllers
-		xbox = new Xbox(RobotMap.xboxPort);
-		attack3 = new Attack3(RobotMap.attack3Port);
-		attack4 = new Attack3(RobotMap.attack4Port);
+		xbox = new Xbox(ControllerMap.xboxPort);
+		attack3 = new Attack3(ControllerMap.attack3Port);
+		attack4 = new Attack3(ControllerMap.attack4Port);
 		// initialize drive subsystem
 		driveSubsystem = new DriveSubsystem();
 		//initialize shooter subsystem
@@ -63,7 +62,7 @@ public class Robot extends IterativeRobot {
 		//instantiate SendableChooser
 		autoChooser = new SendableChooser();
 		//AutoChooser:
-		autoChooser.addDefault("Default Autonomous", new defaultAutonomousCommand());
+		autoChooser.addDefault("Default Autonomous", new DefaultAutonomousCommand());
 		//autoChooser.addObject("Name of Strategy", new AutonomousCommandStrategy());
 		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
 	}
