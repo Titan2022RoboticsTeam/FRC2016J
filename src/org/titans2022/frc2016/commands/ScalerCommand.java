@@ -42,6 +42,7 @@ public class ScalerCommand extends Command {
 	//Handles the extension and automatic retraction of the tape measure.
 	protected void tape(Xbox xbox) {
 		if (xbox.GetRawButton(ControllerMap.extendTape)) {
+			//Detects the instant when the button is pressed, begins a counter for the tape extending.
 			if(!tapeExtending){
 				tapeElapsed -= System.nanoTime() - tapeStart;
 				
@@ -50,6 +51,10 @@ public class ScalerCommand extends Command {
 			}
 			tapeExtending = true;
 		} else if(!xbox.GetRawButton(ControllerMap.extendTape)) {
+			/**Detects the instant when the button is released,
+			 * finding the time elapsed for tape extending
+			 * and beginning a counter of its own for retraction.
+			 */
 			if(tapeExtending){
 				tapeElapsed += System.nanoTime()-tapeStart;
 				tapeStart = System.nanoTime();
@@ -59,9 +64,11 @@ public class ScalerCommand extends Command {
 		
 		if (tapeExtending){
 			scalerSubsystem.setTapeSpeed(TAPE_SPEED);
-		} else if (tapeElapsed > 0){
+		//Detects if the motor has retracted the tape far enough, stops if true.
+		} else if (tapeElapsed > System.nanoTime()-tapeStart){
 			scalerSubsystem.setTapeSpeed(-TAPE_SPEED);
 		} else{
+			tapeElapsed=0;
 			scalerSubsystem.setTapeSpeed(0);
 		}
 	}
