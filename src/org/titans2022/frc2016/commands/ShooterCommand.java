@@ -33,9 +33,11 @@ public class ShooterCommand extends Command{
 		
 		double shooterSpeed = Robot.robot.attack3.getY();
 
+		// Hopefully intakes
 		if(Robot.robot.attack3.getButton(5) == true){
 			shooterSubsystem.setIntake(-1);
 		}
+		// Hopefully shoots
 		else if(Robot.robot.attack3.getButton(6) == true){
 			shooterSubsystem.setIntake(1);
 		}

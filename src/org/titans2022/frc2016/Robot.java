@@ -30,8 +30,8 @@ public class Robot extends IterativeRobot {
 	public Xbox xbox;
 	public Attack3 attack3, attack4;
 	// Robot Drive subsystem
-	public DriveSubsystem driveSubsystem;
-	public SensorSubsystem sensorSubsystem;
+	public static DriveSubsystem driveSubsystem;
+	public static SensorSubsystem sensorSubsystem;
 	public static ShooterSubsystem shooterSubsystem;
 	// Robot internal state
 	/// none yet
