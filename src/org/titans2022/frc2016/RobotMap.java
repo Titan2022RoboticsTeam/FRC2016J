@@ -24,5 +24,10 @@ public class RobotMap {
 	public static int intakeFrontPort = 0;
 	public static int intakeBackPort = 1;
 	public static int hingePort = 2;
+	//Encoders
+	public static int rightEncoderPortA = 0;
+	public static int rightEncoderPortB = 1;
+	public static int leftEncoderPortA = 2;
+	public static int leftEncoderPortB = 3;
 	
 }
