@@ -24,5 +24,9 @@ public class RobotMap {
 	public static int intakeFrontPort = 0;
 	public static int intakeBackPort = 1;
 	public static int hingePort = 2;
+	// Scalar system motors (temp values)
+	public static int tapeMotorPort = -1;
+	public static int winchPort = -1;
+	
 	
 }

@@ -2,11 +2,13 @@
 package org.titans2022.frc2016;
 
 import org.titans2022.frc2016.commands.DriveCommand;
+import org.titans2022.frc2016.commands.ScalerCommand;
 import org.titans2022.frc2016.commands.ShooterCommand;
 import org.titans2022.frc2016.commands.DefaultAutonomousCommand;
 import org.titans2022.frc2016.controllers.Attack3;
 import org.titans2022.frc2016.controllers.Xbox;
 import org.titans2022.frc2016.subsystems.DriveSubsystem;
+import org.titans2022.frc2016.subsystems.ScalerSubsystem;
 import org.titans2022.frc2016.subsystems.SensorSubsystem;
 import org.titans2022.frc2016.subsystems.ShooterSubsystem;
 
@@ -33,12 +35,14 @@ public class Robot extends IterativeRobot {
 	public DriveSubsystem driveSubsystem;
 	public SensorSubsystem sensorSubsystem;
 	public static ShooterSubsystem shooterSubsystem;
+	public ScalerSubsystem scalerSubsystem;
 	// Robot internal state
 	/// none yet
 	// Robot Commands
 	Command autonomousCommand;
 	DriveCommand driveCommand;
 	ShooterCommand shooterCommand;
+	ScalerCommand scalerCommand;
 	//For Choosing Autonomous Strategy
 	SendableChooser autoChooser;
 
@@ -56,9 +60,12 @@ public class Robot extends IterativeRobot {
 		driveSubsystem = new DriveSubsystem();
 		//initialize shooter subsystem
 		shooterSubsystem = new ShooterSubsystem();
+		//initialize scaler subsystem
+		scalerSubsystem = new ScalerSubsystem();
 		// instantiate the command(s) used for the teleop period
 		shooterCommand = new ShooterCommand();
 		driveCommand = new DriveCommand(driveSubsystem);
+		scalerCommand = new ScalerCommand(scalerSubsystem);
 		//instantiate SendableChooser
 		autoChooser = new SendableChooser();
 		//AutoChooser:
@@ -93,6 +100,7 @@ public class Robot extends IterativeRobot {
 		// start the teleop commands
 		shooterCommand.start();
 		driveCommand.start();
+		scalerCommand.start();
 	}
 
 	/**
