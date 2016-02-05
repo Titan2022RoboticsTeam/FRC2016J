@@ -1,6 +1,7 @@
 package org.titans2022.frc2016.subsystems;
 
 import org.titans2022.frc2016.RobotMap;
+import org.titans2022.frc2016.sensors.AngularPotentiometer;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TalonSRX;
@@ -9,8 +10,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ShooterSubsystem extends Subsystem {
 	TalonSRX intakeFront;
 	TalonSRX intakeBack;
+	AngularPotentiometer shooterAngle;
 	TalonSRX shooterHinge;
-	DigitalInput limitSwitch = new DigitalInput(RobotMap.limitSwitchPort);
+	DigitalInput limitSwitch;
+	
+
+	final double HINGE_SPEED = 0.5;
 
 	public ShooterSubsystem() {
 		// Constructor for the subsystem sets the different motors,
@@ -18,6 +23,9 @@ public class ShooterSubsystem extends Subsystem {
 		intakeFront = new TalonSRX(RobotMap.intakeFrontPort);
 		intakeBack = new TalonSRX(RobotMap.intakeBackPort);
 		shooterHinge = new TalonSRX(RobotMap.hingePort);
+		shooterAngle = new AngularPotentiometer(RobotMap.shooterAnglePort, 1, 0);
+		limitSwitch = new DigitalInput(RobotMap.limitSwitchPort);
+		
 	}
 	
 	public void setIntake (int speed) {
@@ -42,8 +50,11 @@ public class ShooterSubsystem extends Subsystem {
 		
 	}
 	
-	public void changeShooterAngle(double speed){
-		shooterHinge.set(speed);
+	public void changeShooterAngle(double angle){
+		boolean higher = angle-shooterAngle.getAngleDegrees()>0;
+		while(Math.abs(angle-shooterAngle.getAngleDegrees())>1){
+			shooterHinge.set(HINGE_SPEED*(higher?1:-1));
+		}
 	}
 	
 	public void stop(){
