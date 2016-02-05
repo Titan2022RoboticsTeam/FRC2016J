@@ -1,20 +1,23 @@
 
 package org.titans2022.frc2016;
 
+import org.titans2022.frc2016.commands.DriveCommand;
+import org.titans2022.frc2016.commands.ScalerCommand;
+import org.titans2022.frc2016.commands.ShooterCommand;
+import org.titans2022.frc2016.commands.DefaultAutonomousCommand;
+import org.titans2022.frc2016.controllers.Attack3;
+import org.titans2022.frc2016.controllers.Xbox;
+import org.titans2022.frc2016.subsystems.DriveSubsystem;
+import org.titans2022.frc2016.subsystems.ScalerSubsystem;
+import org.titans2022.frc2016.subsystems.SensorSubsystem;
+import org.titans2022.frc2016.subsystems.ShooterSubsystem;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-
-import org.titans2022.frc2016.commands.AutoFireCommand;
-import org.titans2022.frc2016.commands.AutonomousCommand;
-import org.titans2022.frc2016.commands.DriveCommand;
-import org.titans2022.frc2016.controllers.Attack3;
-import org.titans2022.frc2016.controllers.Xbox;
-import org.titans2022.frc2016.subsystems.DriveSystem;
-import org.titans2022.frc2016.subsystems.SensorSystem;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,14 +32,19 @@ public class Robot extends IterativeRobot {
 	public Xbox xbox;
 	public Attack3 attack3, attack4;
 	// Robot Drive subsystem
-	public DriveSystem driveSystem;
-	public SensorSystem sensorSystem;
+	public DriveSubsystem driveSubsystem;
+	public SensorSubsystem sensorSubsystem;
+	public static ShooterSubsystem shooterSubsystem;
+	public ScalerSubsystem scalerSubsystem;
 	// Robot internal state
 	/// none yet
 	// Robot Commands
-	AutonomousCommand autonomousCommand;
-	AutoFireCommand fireCommand;
+	Command autonomousCommand;
 	DriveCommand driveCommand;
+	ShooterCommand shooterCommand;
+	ScalerCommand scalerCommand;
+	//For Choosing Autonomous Strategy
+	SendableChooser autoChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -45,16 +53,25 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		robot = this;
 		// initialize the controllers
-		xbox = new Xbox(RobotMap.xboxPort);
-		attack3 = new Attack3(RobotMap.attack3Port);
-		attack4 = new Attack3(RobotMap.attack4Port);
+		xbox = new Xbox(ControllerMap.xboxPort);
+		attack3 = new Attack3(ControllerMap.attack3Port);
+		attack4 = new Attack3(ControllerMap.attack4Port);
 		// initialize drive subsystem
-		driveSystem = new DriveSystem();
-		// instantiate the command(s) used for the autonomous period
-		autonomousCommand = new AutonomousCommand();//??? Add more commands???
+		driveSubsystem = new DriveSubsystem();
+		//initialize shooter subsystem
+		shooterSubsystem = new ShooterSubsystem();
+		//initialize scaler subsystem
+		scalerSubsystem = new ScalerSubsystem();
 		// instantiate the command(s) used for the teleop period
-		fireCommand = new AutoFireCommand();
-		driveCommand = new DriveCommand(driveSystem);
+		shooterCommand = new ShooterCommand();
+		driveCommand = new DriveCommand(driveSubsystem);
+		scalerCommand = new ScalerCommand(scalerSubsystem);
+		//instantiate SendableChooser
+		autoChooser = new SendableChooser();
+		//AutoChooser:
+		autoChooser.addDefault("Default Autonomous", new DefaultAutonomousCommand());
+		//autoChooser.addObject("Name of Strategy", new AutonomousCommandStrategy());
+		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
 	}
 
 	public void disabledPeriodic() {
@@ -63,6 +80,7 @@ public class Robot extends IterativeRobot {
 
 	public void autonomousInit() {
 		// schedule the autonomous command (example)
+		autonomousCommand = (Command) autoChooser.getSelected();
 		autonomousCommand.start();
 	}
 
@@ -80,8 +98,9 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		autonomousCommand.cancel();
 		// start the teleop commands
-		fireCommand.start();
+		shooterCommand.start();
 		driveCommand.start();
+		scalerCommand.start();
 	}
 
 	/**
@@ -90,7 +109,7 @@ public class Robot extends IterativeRobot {
 	 */
 	public void disabledInit() {
 		// disable robot
-		driveSystem.stop();
+		driveSubsystem.stop();
 	}
 
 	/**
