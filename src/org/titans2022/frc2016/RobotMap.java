@@ -27,6 +27,12 @@ public class RobotMap {
 	// Scalar system motors (temp values)
 	public static int tapeMotorPort = -1;
 	public static int winchPort = -1;
+	//Encoders
+	public static int rightEncoderPortA = 0;
+	public static int rightEncoderPortB = 1;
+	public static int leftEncoderPortA = 2;
+	public static int leftEncoderPortB = 3;
+
 	
 	
 }
