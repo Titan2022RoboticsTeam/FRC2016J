@@ -1,6 +1,6 @@
 package org.titans2022.frc2016.sensors;
 
-import org.titans2022.frc2016.RobotMap;
+//import org.titans2022.frc2016.RobotMap;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 

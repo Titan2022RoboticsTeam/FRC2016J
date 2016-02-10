@@ -1,8 +1,7 @@
 package org.titans2022.frc2016.commands;
 
-import org.titans2022.frc2016.Robot;
-import org.titans2022.frc2016.RobotMap;
-import org.titans2022.frc2016.controllers.Xbox;
+//import org.titans2022.frc2016.Robot;
+import org.titans2022.frc2016.controllers.UniversalController;
 import org.titans2022.frc2016.subsystems.DriveSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -25,17 +24,16 @@ public class DriveCommand extends Command {
 	protected void execute() {
 		double leftValue;
 		double rightValue;
-		Xbox xbox = Robot.robot.xbox;
-		if (xbox.GetRawButton(RobotMap.invertButton)) {
+		if (UniversalController.getInvertButtonPressed()) {
 			inverted = !inverted;
 		}
 		if (inverted) {
-			leftValue = -xbox.GetRightY();
-			rightValue = -xbox.GetLeftY();
+			leftValue = -UniversalController.getRightMotorSpeed();
+			rightValue = -UniversalController.getLeftMotorSpeed();
 		}
 		else{
-			leftValue = xbox.GetLeftY();
-			rightValue = xbox.GetRightY();
+			leftValue = UniversalController.getLeftMotorSpeed();
+			rightValue = UniversalController.getRightMotorSpeed();
 		}
 
 		driveSubsystem.setSpeed(leftValue, rightValue);

@@ -22,7 +22,9 @@ public class ShooterSubsystem extends Subsystem {
 	}
 	
 	public void setIntake (int speed) {
+		
 		if(speed == 1){
+		
 			intakeFront.set(1);
 			intakeBack.set(1);
 		}
@@ -50,6 +52,7 @@ public class ShooterSubsystem extends Subsystem {
 	public void stop(){
 		intakeFront.set(0);
 		intakeBack.set(0);
+		shooterHinge.set(0);
 	}
 	
 

@@ -1,7 +1,5 @@
 package org.titans2022.frc2016;
 
-import org.titans2022.frc2016.controllers.Xbox;
-
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -26,7 +24,6 @@ public class RobotMap {
 	//sensor configuration
 	public static double lidarScalar = 1;
 	//controller configuration
-	public static int invertButton = Xbox.A_BUTTON;
 	public static double sensitivity = 0.05;
 	// Motor ports for intake and hinge in shooter
 	public static int intakeFrontPort = 0;

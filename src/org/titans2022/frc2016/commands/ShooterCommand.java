@@ -2,6 +2,7 @@ package org.titans2022.frc2016.commands;
 
 import org.titans2022.frc2016.Robot;
 import org.titans2022.frc2016.RobotMap;
+import org.titans2022.frc2016.controllers.UniversalController;
 import org.titans2022.frc2016.sensors.Potentiometer;
 import org.titans2022.frc2016.subsystems.ShooterSubsystem;
 
@@ -10,8 +11,10 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ShooterCommand extends Command{
 	
 	ShooterSubsystem shooterSubsystem;
-	double attackThrottleSensitivity = 0.1;
+	double attackThrottleSensitivity = 0.1; //is this ever used?
 	Potentiometer potentiometer;
+	
+	boolean shooterInverted;
 
 	
 	@Override
@@ -30,23 +33,23 @@ public class ShooterCommand extends Command{
 	@Override
 	protected void execute() {
 		
-		double shooterSpeed = Robot.robot.attack3.getY();
+		double shooterAim = UniversalController.shooterSpeedAxis;
 
-		if(Robot.robot.attack3.getButton(5) == true){
+		if(UniversalController.shooterIntakeButtonPressed == true){
 			shooterSubsystem.setIntake(-1);
 		}
-		else if(Robot.robot.attack3.getButton(6) == true){
+		else if(UniversalController.shooterSpinUpButtonPressed == true){
 			shooterSubsystem.setIntake(1);
 		}
 		else{
 			shooterSubsystem.setIntake(0);
 		}
 		
-		if(shooterSpeed > attackThrottleSensitivity && potentiometer.get() < 90){
-			shooterSubsystem.changeShooterAngle(shooterSpeed);
+		if(shooterAim > attackThrottleSensitivity && potentiometer.get() < 90){
+			shooterSubsystem.changeShooterAngle(shooterAim);
 		}
-		else if(shooterSpeed < -attackThrottleSensitivity && potentiometer.get() > 0){
-			shooterSubsystem.changeShooterAngle(shooterSpeed);
+		else if(shooterAim < -attackThrottleSensitivity && potentiometer.get() > 0){
+			shooterSubsystem.changeShooterAngle(shooterAim);
 		}
 		
 		
