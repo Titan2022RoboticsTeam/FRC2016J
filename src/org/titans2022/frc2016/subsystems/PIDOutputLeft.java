@@ -2,15 +2,15 @@ package org.titans2022.frc2016.subsystems;
 
 import edu.wpi.first.wpilibj.PIDOutput;
 
-public class PIDOutputLeft implements PIDOutput{
+public class PIDOutputLeft implements PIDOutput {
 	double output;
-	
+
 	@Override
 	public void pidWrite(double output) {
 		this.output = output;
 	}
-	
-	public double getOutput(){
+
+	public double getOutput() {
 		return output;
 	}
 }

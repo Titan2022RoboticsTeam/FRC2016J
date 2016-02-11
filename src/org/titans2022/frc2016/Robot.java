@@ -43,7 +43,7 @@ public class Robot extends IterativeRobot {
 	DriveCommand driveCommand;
 	ShooterCommand shooterCommand;
 	ScalerCommand scalerCommand;
-	//For Choosing Autonomous Strategy
+	// For Choosing Autonomous Strategy
 	SendableChooser autoChooser;
 
 	/**
@@ -58,19 +58,20 @@ public class Robot extends IterativeRobot {
 		attack4 = new Attack3(ControllerMap.attack4Port);
 		// initialize drive subsystem
 		driveSubsystem = new DriveSubsystem();
-		//initialize shooter subsystem
+		// initialize shooter subsystem
 		shooterSubsystem = new ShooterSubsystem();
-		//initialize scaler subsystem
+		// initialize scaler subsystem
 		scalerSubsystem = new ScalerSubsystem();
 		// instantiate the command(s) used for the teleop period
 		shooterCommand = new ShooterCommand();
 		driveCommand = new DriveCommand(driveSubsystem);
 		scalerCommand = new ScalerCommand(scalerSubsystem);
-		//instantiate SendableChooser
+		// instantiate SendableChooser
 		autoChooser = new SendableChooser();
-		//AutoChooser:
+		// AutoChooser:
 		autoChooser.addDefault("Default Autonomous", new DefaultAutonomousCommand());
-		//autoChooser.addObject("Name of Strategy", new AutonomousCommandStrategy());
+		// autoChooser.addObject("Name of Strategy", new
+		// AutonomousCommandStrategy());
 		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
 	}
 

@@ -16,15 +16,15 @@ public class DriveSubsystem extends Subsystem {
 	private RobotDrive drive;
 	SensorSubsystem system;
 	private double rightSpeed, leftSpeed;
-	
-	//Encoders
+
+	// Encoders
 	private Encoder rightEncoder;
 	private Encoder leftEncoder;
-	
-	//PID
+
+	// PID
 	public PIDController rightController;
 	public PIDOutputRight pidOutputRight;
-	
+
 	public PIDController leftController;
 	public PIDOutputLeft pidOutputLeft;
 
@@ -32,14 +32,14 @@ public class DriveSubsystem extends Subsystem {
 		drive = new RobotDrive(new CANTalon(RobotMap.frontLeftMotor), new CANTalon(RobotMap.backLeftMotor),
 				new CANTalon(RobotMap.frontRightMotor), new CANTalon(RobotMap.backRightMotor));
 		drive.setSafetyEnabled(true);
-		
-		//Initialize Encoders
+
+		// Initialize Encoders
 		rightEncoder = new Encoder(RobotMap.rightEncoderPortA, RobotMap.rightEncoderPortB, false, EncodingType.k4X);
 		leftEncoder = new Encoder(RobotMap.leftEncoderPortA, RobotMap.leftEncoderPortB, false, EncodingType.k4X);
-		//Set Encoder distance per pulse
+		// Set Encoder distance per pulse
 		rightEncoder.setDistancePerPulse(ConstantMap.driveEncoderDistPerTick);
 		leftEncoder.setDistancePerPulse(ConstantMap.driveEncoderDistPerTick);
-				
+
 	}
 
 	protected void initDefaultCommand() {
@@ -58,12 +58,12 @@ public class DriveSubsystem extends Subsystem {
 		this.rightSpeed = rightSpeed;
 		this.leftSpeed = leftSpeed;
 	}
-	
-	public void setLeftSpeed(double speed){
+
+	public void setLeftSpeed(double speed) {
 		drive.tankDrive(speed, rightSpeed);
 	}
-	
-	public void setRightSpeed(double speed){
+
+	public void setRightSpeed(double speed) {
 		drive.tankDrive(leftSpeed, speed);
 	}
 
@@ -75,68 +75,68 @@ public class DriveSubsystem extends Subsystem {
 		drive.stopMotor();
 		rightSpeed = leftSpeed = 0;
 	}
-	
-	
-	//Get Encoder Distances
-	public double getRightEncoderDistance(){
+
+	// Get Encoder Distances
+	public double getRightEncoderDistance() {
 		System.out.println(rightEncoder.getDistance());
 		return rightEncoder.getDistance();
 	}
-	
-	public double getLeftEncoderDistance(){
+
+	public double getLeftEncoderDistance() {
 		System.out.println(leftEncoder.getDistance());
 		return leftEncoder.getDistance();
 	}
-	
-	//Get Encoder Raw Values
-	public int getRightEncoderRawValue(){
+
+	// Get Encoder Raw Values
+	public int getRightEncoderRawValue() {
 		System.out.println(rightEncoder.get());
 		return rightEncoder.get();
 	}
-	
-	public int getLeftEncoderRawValue(){
+
+	public int getLeftEncoderRawValue() {
 		System.out.println(leftEncoder.get());
 		return leftEncoder.get();
 	}
-	
-	//Get Encoder Rates
-	public double getRightEncoderRate(){
+
+	// Get Encoder Rates
+	public double getRightEncoderRate() {
 		return rightEncoder.getRate();
 	}
-	
-	public double getLeftEncoderRate(){
+
+	public double getLeftEncoderRate() {
 		return leftEncoder.getRate();
 	}
-	
-	public void resetEncoders(){
+
+	public void resetEncoders() {
 		rightEncoder.reset();
 		leftEncoder.reset();
 	}
-	
-	//This method will use the PID controllers to get data from the encoders
-	//and give an output to the motors based on the PID variables
+
+	// This method will use the PID controllers to get data from the encoders
+	// and give an output to the motors based on the PID variables
 	public void driveDistanceStraight(double inches) {
 		resetEncoders();
-		
+
 		pidOutputRight = new PIDOutputRight();
-		rightController = new PIDController(ConstantMap.pC, ConstantMap.iC, ConstantMap.dC, rightEncoder, pidOutputRight);
-	
+		rightController = new PIDController(ConstantMap.pC, ConstantMap.iC, ConstantMap.dC, rightEncoder,
+				pidOutputRight);
+
 		pidOutputLeft = new PIDOutputLeft();
 		leftController = new PIDController(ConstantMap.pC, ConstantMap.iC, ConstantMap.dC, leftEncoder, pidOutputLeft);
-		
+
 		rightController.setOutputRange(-1, 1);
-		leftController.setOutputRange(-1, 1); 
-		
+		leftController.setOutputRange(-1, 1);
+
 		rightController.setSetpoint(inches);
 		leftController.setSetpoint(inches);
-		
+
 		rightController.enable();
 		leftController.enable();
-		
-		while(rightController.isEnable() || leftController.isEnable()){
+
+		while (rightController.isEnable() || leftController.isEnable()) {
 			setRightSpeed(pidOutputRight.getOutput());
 			setLeftSpeed(pidOutputLeft.getOutput());
 		}
-	
+
 	}
 }

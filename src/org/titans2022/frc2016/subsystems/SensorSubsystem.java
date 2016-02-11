@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class SensorSubsystem extends Subsystem {
 	private Gyro gyro;
 	private Lidar rangeFinder;
+
 	public SensorSubsystem() {
 		gyro = new Gyro(RobotMap.gyroPort);
 		gyro.initGyro();
@@ -20,16 +21,16 @@ public class SensorSubsystem extends Subsystem {
 		// TODO Auto-generated method stub
 
 	}
-	
-	public void calibrateAngle(){
+
+	public void calibrateAngle() {
 		gyro.reset();
 	}
-	
-	public double getAngle(){
+
+	public double getAngle() {
 		return gyro.getAngle();
 	}
-	
-	public double getDistance(){
+
+	public double getDistance() {
 		return rangeFinder.getDistance();
 	}
 }

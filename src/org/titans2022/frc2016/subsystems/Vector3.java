@@ -2,6 +2,7 @@ package org.titans2022.frc2016.subsystems;
 
 /**
  * A 3d vector
+ * 
  * @author nick
  */
 public class Vector3 {
@@ -11,10 +12,10 @@ public class Vector3 {
 		this(0, 0, 0);
 	}
 
-	public Vector3(double s){
-		this(s,s,s);
+	public Vector3(double s) {
+		this(s, s, s);
 	}
-	
+
 	/**
 	 * Creates a new vector
 	 * 

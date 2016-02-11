@@ -8,14 +8,14 @@ public class ControllerMap {
 	public static int attack3Port = 1;
 	public static int attack4Port = 2;
 
-	//controller configuration
+	// controller configuration
 	public static int invertButton = Xbox.A_BUTTON;
 	public static double sensitivity = 0.05;
 	public static double scale = 1.0d;
-	
-	//scaler bindings placeholder values
+
+	// scaler bindings placeholder values
 	public static int extendTape = -1;
 	public static int winchUp = -1;
 	public static int winchDown = -1;
-	
+
 }
