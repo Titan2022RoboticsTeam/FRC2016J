@@ -19,7 +19,8 @@ public class RobotMap {
 	// sensor ports 
 	public static int gyroPort = -1;// not a real value
 	public static int lidarPort = -1;
-	public static int limitSwitchPort = -1;
+	public static int shooterLimitSwitchPort = -1;
+	public static int ballLimitSwitchPort = -1;
 	public static int potentiometerPort = -1;
 	//sensor configuration
 	public static double lidarScalar = 1;

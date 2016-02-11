@@ -46,10 +46,10 @@ public class ShooterCommand extends Command{
 		}
 		
 		if(shooterAim > attackThrottleSensitivity && potentiometer.get() < 90){
-			shooterSubsystem.changeShooterAngle(shooterAim);
+			shooterSubsystem.manualChangeShooterAngle(shooterAim);
 		}
 		else if(shooterAim < -attackThrottleSensitivity && potentiometer.get() > 0){
-			shooterSubsystem.changeShooterAngle(shooterAim);
+			shooterSubsystem.manualChangeShooterAngle(shooterAim);
 		}
 		
 		
