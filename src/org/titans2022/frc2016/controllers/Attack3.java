@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * @editor Nick Nusgart because this class did not follow any reasonable code
  *         standards. (Jan 22, 2015)
  */
-public class Attack3 extends Joystick implements GenericController {
+public class Attack3 extends Joystick {
 	/**
 	 * Construct an instance of a Logitech Attack3 joystick (The kind in the
 	 * KoP). Initialize Button6 and Button 7 for controlling the pickup relays
@@ -62,7 +62,6 @@ public class Attack3 extends Joystick implements GenericController {
 	static final int Y_AXIS = 1;
 	static final int Z_AXIS = 2;
 
-	@Override
 	public double getAxisValue(int axis) {
 		if (axis == X_AXIS) {
 			return getX();
@@ -75,7 +74,6 @@ public class Attack3 extends Joystick implements GenericController {
 		}
 	}
 
-	@Override
 	public boolean getButtonValue(int button) {
 		return (new JoystickButton(this, button)).get();
 	}

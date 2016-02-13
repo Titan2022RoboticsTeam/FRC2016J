@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * 
  * @author TitanRobotics
  */
-public class Xbox extends Joystick implements GenericController {
+public class Xbox extends Joystick {
 
 	// Axes
 	public static final int LEFT_XAXIS = 0;
@@ -432,13 +432,11 @@ public class Xbox extends Joystick implements GenericController {
 		return num;
 	}
 
-	@Override
 	public double getAxisValue(int axis) {
 		// TODO Auto-generated method stub
 		return GetRawAxis(axis);
 	}
 
-	@Override
 	public boolean getButtonValue(int button) {
 		// TODO Auto-generated method stub
 		return GetRawButton(button);
