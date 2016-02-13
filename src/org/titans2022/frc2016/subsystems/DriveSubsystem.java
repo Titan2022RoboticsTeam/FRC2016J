@@ -112,31 +112,35 @@ public class DriveSubsystem extends Subsystem {
 		leftEncoder.reset();
 	}
 
-	// This method will use the PID controllers to get data from the encoders
-	// and give an output to the motors based on the PID variables
-	public void driveDistanceStraight(double inches) {
-		resetEncoders();
-
-		pidOutputRight = new PIDOutputRight();
-		rightController = new PIDController(ConstantMap.pC, ConstantMap.iC, ConstantMap.dC, rightEncoder,
-				pidOutputRight);
-
-		pidOutputLeft = new PIDOutputLeft();
-		leftController = new PIDController(ConstantMap.pC, ConstantMap.iC, ConstantMap.dC, leftEncoder, pidOutputLeft);
-
-		rightController.setOutputRange(-1, 1);
-		leftController.setOutputRange(-1, 1);
-
-		rightController.setSetpoint(inches);
-		leftController.setSetpoint(inches);
-
-		rightController.enable();
-		leftController.enable();
-
-		while (rightController.isEnable() || leftController.isEnable()) {
-			setRightSpeed(pidOutputRight.getOutput());
-			setLeftSpeed(pidOutputLeft.getOutput());
+	//PID Methods
+		public void enableRightPIDController(double distance){
+			rightController.setSetpoint(distance);
+			rightController.enable();
+		}
+		public void disablePIDControllers(){
+			rightController.disable();
+			leftController.disable();
+		}
+		
+		public void enableLeftPIDController(double distance){
+			leftController.setSetpoint(distance);
+			leftController.enable();
+		}
+		
+		public double getRightPIDOutput(){
+			return pidOutputRight.getOutput();
+		}
+		
+		public double getLeftPIDOuput(){
+			return pidOutputLeft.getOutput();
 		}
 
-	}
+		//Is robot 0.5 inches from target
+		public boolean rightPIDOnTarget(){
+			return rightController.onTarget();
+		}
+		
+		public boolean leftPIDOnTarget(){
+			return leftController.onTarget();
+		}
 }

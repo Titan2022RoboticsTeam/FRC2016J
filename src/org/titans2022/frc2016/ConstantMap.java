@@ -16,5 +16,8 @@ public class ConstantMap {
 	public static double iC = 0.05;
 	public static double dC = 0.05;
 	public static double kC = 1;
+	
+	//Robot Dimensions
+	public static double robotWidth = 22;
 
 }
