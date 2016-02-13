@@ -1,5 +1,6 @@
 package org.titans2022.frc2016.commands;
 
+import org.titans2022.frc2016.Robot;
 import org.titans2022.frc2016.controllers.UniversalController;
 import org.titans2022.frc2016.subsystems.DriveSubsystem;
 
@@ -12,8 +13,8 @@ public class DriveCommand extends Command {
 	protected DriveSubsystem driveSubsystem;
 	protected boolean inverted = false;
 
-	public DriveCommand(DriveSubsystem drive) {
-		this.driveSubsystem = drive;
+	public DriveCommand() {
+		driveSubsystem = Robot.driveSubsystem;
 	}
 
 	protected void initialize() {

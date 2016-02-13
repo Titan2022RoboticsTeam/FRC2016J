@@ -4,9 +4,7 @@ package org.titans2022.frc2016;
 import org.titans2022.frc2016.commands.DriveCommand;
 import org.titans2022.frc2016.commands.ScalerCommand;
 import org.titans2022.frc2016.commands.ShooterCommand;
-import org.titans2022.frc2016.commands.DefaultAutonomousCommand;
-import org.titans2022.frc2016.controllers.Attack3;
-import org.titans2022.frc2016.controllers.Xbox;
+import org.titans2022.frc2016.subsystems.CameraSubsystem;
 import org.titans2022.frc2016.subsystems.DriveSubsystem;
 import org.titans2022.frc2016.subsystems.ScalerSubsystem;
 import org.titans2022.frc2016.subsystems.SensorSubsystem;
@@ -27,15 +25,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	public static Robot robot;
-	// Controllers
-	public Xbox xbox;
-	public Attack3 attack3, attack4;
 	// Robot Drive subsystem
-	public static DriveSubsystem driveSubsystem;
-	public static SensorSubsystem sensorSubsystem;
-	public static ShooterSubsystem shooterSubsystem;
-	public static ScalerSubsystem scalerSubsystem;
+	public static DriveSubsystem driveSubsystem = new DriveSubsystem();
+	public static SensorSubsystem sensorSubsystem = new SensorSubsystem();
+	public static ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+	public static ScalerSubsystem scalerSubsystem = new ScalerSubsystem();
+	public static CameraSubsystem cameraSubsystem = new CameraSubsystem();
 	// Robot internal state
 	/// none yet
 	// Robot Commands
@@ -51,21 +46,13 @@ public class Robot extends IterativeRobot {
 	 * used for any initialization code.
 	 */
 	public void robotInit() {
-		robot = this;
-		// initialize drive subsystem
-		driveSubsystem = new DriveSubsystem();
-		// initialize shooter subsystem
-		shooterSubsystem = new ShooterSubsystem();
-		// initialize scaler subsystem
-		scalerSubsystem = new ScalerSubsystem();
 		// instantiate the command(s) used for the teleop period
 		shooterCommand = new ShooterCommand();
-		driveCommand = new DriveCommand(driveSubsystem);
-		scalerCommand = new ScalerCommand(scalerSubsystem);
+		driveCommand = new DriveCommand();
+		scalerCommand = new ScalerCommand();
 		// instantiate SendableChooser
 		autoChooser = new SendableChooser();
 		// AutoChooser:
-		autoChooser.addDefault("Default Autonomous", new DefaultAutonomousCommand());
 		// autoChooser.addObject("Name of Strategy", new
 		// AutonomousCommandStrategy());
 		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
@@ -107,6 +94,7 @@ public class Robot extends IterativeRobot {
 	public void disabledInit() {
 		// disable robot
 		driveSubsystem.stop();
+		
 	}
 
 	/**

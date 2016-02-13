@@ -81,7 +81,7 @@ public class CameraSubsystem extends Subsystem {
 
 		try{
 			//Get area***********************************
-			double[] coordinatesArray = table.getNumberArray("BFR_COORDINATES", new double[8]);
+			double[] coordinatesArray = (double[]) table.getValue("BFR_COORDINATES", new double[8]);
 			if(coordinatesArray.length == 8){
 				coordinates.replace("p1x", coordinatesArray[0]);
 				coordinates.replace("p1y", coordinatesArray[1]);

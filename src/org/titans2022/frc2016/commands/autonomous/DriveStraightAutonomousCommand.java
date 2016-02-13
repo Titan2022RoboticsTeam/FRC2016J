@@ -17,9 +17,9 @@ public class DriveStraightAutonomousCommand extends Command {
    public DriveStraightAutonomousCommand(double distance) {
        // Use requires() here to declare subsystem dependencies
        // eg. requires(chassis);
-   	requires(Robot.driveSubsystem);
-   	driveSubsystem = Robot.driveSubsystem;
-   	this.distance = distance;
+	   	requires(Robot.driveSubsystem);
+	   	driveSubsystem = Robot.driveSubsystem;
+	   	this.distance = distance;
    }
 
    // Called just before this Command runs the first time
@@ -32,16 +32,16 @@ public class DriveStraightAutonomousCommand extends Command {
 	   	driveSubsystem.enableLeftPIDController(distance);
 	   	driveSubsystem.enableRightPIDController(distance);
 	   	while(running){
-				driveSubsystem.setRightSpeed(driveSubsystem.getRightPIDOutput());
-							
-				driveSubsystem.setLeftSpeed(driveSubsystem.pidOutputLeft.getOutput());
-	   	
-		    	if(driveSubsystem.getRightEncoderDistance() > distance - 0.5 && driveSubsystem.getRightEncoderDistance() < distance + 0.5){
-					if(driveSubsystem.getLeftEncoderDistance() > distance - 0.5 && driveSubsystem.getLeftEncoderDistance() < distance + 0.5){
-						running = false;
-						System.out.println(running);
-					}
+			driveSubsystem.setRightSpeed(driveSubsystem.getRightPIDOutput());
+						
+			driveSubsystem.setLeftSpeed(driveSubsystem.pidOutputLeft.getOutput());
+   	
+	    	if(driveSubsystem.getRightEncoderDistance() > distance - 0.5 && driveSubsystem.getRightEncoderDistance() < distance + 0.5){
+				if(driveSubsystem.getLeftEncoderDistance() > distance - 0.5 && driveSubsystem.getLeftEncoderDistance() < distance + 0.5){
+					running = false;
+					System.out.println(running);
 				}
+			}
 	   	}
 	   	long time = System.currentTimeMillis();
 		driveSubsystem.disablePIDControllers();

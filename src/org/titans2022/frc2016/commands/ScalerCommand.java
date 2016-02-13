@@ -17,8 +17,8 @@ public class ScalerCommand extends Command {
 
 	private final double WINCH_SPEED = 0.5;
 
-	public ScalerCommand(ScalerSubsystem scaler) {
-		this.scalerSubsystem = scaler;
+	public ScalerCommand() {
+		scalerSubsystem = Robot.scalerSubsystem;
 	}
 
 	@Override

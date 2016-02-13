@@ -16,12 +16,15 @@ public class ShooterCommand extends Command {
 	AnalogPotentiometer potentiometer;
 
 	boolean shooterInverted;
+	
+	public ShooterCommand() {
+		shooterSubsystem = Robot.shooterSubsystem;
+		potentiometer = new AnalogPotentiometer(RobotMap.potentiometerPort, 90, 0);
+	}
 
 	@Override
 	protected void initialize() {
 		requires(Robot.shooterSubsystem);
-		shooterSubsystem = Robot.shooterSubsystem;
-		potentiometer = new AnalogPotentiometer(RobotMap.potentiometerPort, 90, 0);
 	}
 
 	@Override
