@@ -1,6 +1,7 @@
 package org.titans2022.frc2016.commands.autonomous;
 
 import org.titans2022.frc2016.Robot;
+import org.titans2022.frc2016.subsystems.CameraSubsystem;
 import org.titans2022.frc2016.subsystems.DriveSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
