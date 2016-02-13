@@ -35,7 +35,7 @@ public class Robot extends IterativeRobot {
 	public static DriveSubsystem driveSubsystem;
 	public static SensorSubsystem sensorSubsystem;
 	public static ShooterSubsystem shooterSubsystem;
-	public ScalerSubsystem scalerSubsystem;
+	public static ScalerSubsystem scalerSubsystem;
 	// Robot internal state
 	/// none yet
 	// Robot Commands
@@ -52,10 +52,6 @@ public class Robot extends IterativeRobot {
 	 */
 	public void robotInit() {
 		robot = this;
-		// initialize the controllers
-		xbox = new Xbox(ControllerMap.xboxPort);
-		attack3 = new Attack3(ControllerMap.attack3Port);
-		attack4 = new Attack3(ControllerMap.attack4Port);
 		// initialize drive subsystem
 		driveSubsystem = new DriveSubsystem();
 		// initialize shooter subsystem
