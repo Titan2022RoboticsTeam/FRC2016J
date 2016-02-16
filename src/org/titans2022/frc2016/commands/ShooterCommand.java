@@ -2,69 +2,68 @@ package org.titans2022.frc2016.commands;
 
 import org.titans2022.frc2016.Robot;
 import org.titans2022.frc2016.RobotMap;
-import org.titans2022.frc2016.sensors.AngularPotentiometer;
+import org.titans2022.frc2016.controllers.UniversalController;
 import org.titans2022.frc2016.subsystems.ShooterSubsystem;
 import org.titans2022.frc2016.subsystems.Vector3;
 
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ShooterCommand extends Command{
-	
-	ShooterSubsystem shooterSubsystem;
-	double attackThrottleSensitivity = 0.1;
-	AngularPotentiometer potentiometer;
+public class ShooterCommand extends Command {
 
+	ShooterSubsystem shooterSubsystem;
+	double attackThrottleSensitivity = 0.1; // is this ever used?
+	AnalogPotentiometer potentiometer;
+
+	boolean shooterInverted;
 	
+	public ShooterCommand() {
+		shooterSubsystem = Robot.shooterSubsystem;
+		potentiometer = new AnalogPotentiometer(RobotMap.potentiometerPort, 90, 0);
+	}
+
 	@Override
 	protected void initialize() {
 		requires(Robot.shooterSubsystem);
-		shooterSubsystem =  Robot.shooterSubsystem;
-		potentiometer = new AngularPotentiometer(RobotMap.potentiometerPort, 90, 0);
 	}
 
 	@Override
 	protected void end() {
 		shooterSubsystem.stop();
-		
+
 	}
 
 	@Override
 	protected void execute() {
-		
-		double shooterSpeed = Robot.robot.attack3.getY();
 
-		// Hopefully intakes
-		if(Robot.robot.attack3.getButton(5) == true){
+		double shooterAim = UniversalController.shooterSpeedAxis;
+
+		if (UniversalController.shooterIntakeButtonPressed == true) {
 			shooterSubsystem.setIntake(-1);
-		}
-		// Hopefully shoots
-		else if(Robot.robot.attack3.getButton(6) == true){
+		} else if (UniversalController.shooterSpinUpButtonPressed == true) {
 			shooterSubsystem.setIntake(1);
-		}
-		else{
+		} else {
 			shooterSubsystem.setIntake(0);
 		}
 
-		// TODO add in actual automatic fire code 
-		
-		if(shooterSpeed > attackThrottleSensitivity && potentiometer.get() < 90){
-			shooterSubsystem.changeShooterAngle(shooterSpeed);
+		// TODO add in actual automatic fire code
+
+		if (shooterAim > attackThrottleSensitivity && potentiometer.get() < 90) {
+			shooterSubsystem.manualChangeShooterAngle(shooterAim);
+		} else if (shooterAim < -attackThrottleSensitivity && potentiometer.get() > 0) {
+			shooterSubsystem.manualChangeShooterAngle(shooterAim);
 		}
-		else if(shooterSpeed < -attackThrottleSensitivity && potentiometer.get() > 0){
-			shooterSubsystem.changeShooterAngle(shooterSpeed);
-		}
-		
+
 	}
 
-	public void addFireTarget(Vector3 target){
-		//TODO implement
+	public void addFireTarget(Vector3 target) {
+		// TODO implement
 	}
-	
-	
+
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

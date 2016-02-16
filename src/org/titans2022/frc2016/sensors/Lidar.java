@@ -2,8 +2,10 @@ package org.titans2022.frc2016.sensors;
 
 import org.titans2022.frc2016.RobotMap;
 import edu.wpi.first.wpilibj.AnalogInput;
+
 /**
  * Lidar - this will probably not be used.
+ * 
  * @author nick
  */
 public class Lidar extends AnalogInput {

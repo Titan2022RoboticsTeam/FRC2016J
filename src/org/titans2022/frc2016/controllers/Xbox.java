@@ -431,4 +431,14 @@ public class Xbox extends Joystick {
 		}
 		return num;
 	}
+
+	public double getAxisValue(int axis) {
+		// TODO Auto-generated method stub
+		return GetRawAxis(axis);
+	}
+
+	public boolean getButtonValue(int button) {
+		// TODO Auto-generated method stub
+		return GetRawButton(button);
+	}
 }

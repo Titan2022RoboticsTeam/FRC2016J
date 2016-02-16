@@ -57,4 +57,24 @@ public class Attack3 extends Joystick {
 	public boolean getButton(int button) {
 		return (new JoystickButton(this, button)).get();
 	}
+
+	static final int X_AXIS = 0;
+	static final int Y_AXIS = 1;
+	static final int Z_AXIS = 2;
+
+	public double getAxisValue(int axis) {
+		if (axis == X_AXIS) {
+			return getX();
+		} else if (axis == Y_AXIS) {
+			return getY();
+		} else if (axis == Z_AXIS) {
+			return getZ();
+		} else {
+			return 0.0;
+		}
+	}
+
+	public boolean getButtonValue(int button) {
+		return (new JoystickButton(this, button)).get();
+	}
 }
